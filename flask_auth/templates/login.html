@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <header>
+        <h1>Вход в аккаунт</h1>
+    </header>
+
+    <main>
+        <form method="POST" action="{{ url_for('users.login') }}">
+            {{ form.csrf_token }}
+            <label for="email">Email:</label>
+            {{ form.email(class="form-control", placeholder="Введите email", required=true) }}
+            <br>
+            <label for="password">Пароль:</label>
+            {{ form.password(class="form-control", placeholder="Введите пароль", required=true) }}
+            <br>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+        <br>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <br class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                <br>
+            {% endif %}
+        {% endwith %}
+        <p>Еще нет аккаунта? <a href="{{ url_for('users.signup') }}">Зарегистрируйтесь здесь</a>.</p>
+    </main>
+</body>
+</html>

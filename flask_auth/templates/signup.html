@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <header>
+        <h1>Регистрация</h1>
+    </header>
+
+    <main>
+        <form method="POST" action="{{ url_for('users.signup') }}">
+            {{ form.csrf_token }}
+            <label for="name">Имя:</label>
+            {{ form.name(class="form-control", placeholder="Введите имя", required=true) }}
+            <br>
+            <label for="email">Email:</label>
+            {{ form.email(class="form-control", placeholder="Введите email", required=true) }}
+            <br>
+            <label for="password">Пароль:</label>
+            {{ form.password(class="form-control", placeholder="Введите пароль", required=true, minlength=4) }}
+            <br>
+            <label for="confirm_password">Подтверждение пароля:</label>
+            {{ form.confirm_password(class="form-control", placeholder="Подтвердите пароль", required=true) }}
+
+            {% if form.confirm_password.errors %}
+                <p style="color: red;">Пароли в полях разные</p>
+            {% endif %}
+
+            <br>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+        <br>
+        <p>Уже есть аккаунт? <a href="{{ url_for('users.login') }}">Авторизируйтесь здесь</a>.</p>
+    </main>
+</body>
+</html>
+
